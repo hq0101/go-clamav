@@ -140,19 +140,19 @@ clamd-ctl是一个Go语言编写的命令行工具，用于与ClamAV服务器进
 - 帮助手册
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 -h
+clamd-ctl-v0.1.0.linux-amd64 -h
 ```
 
 - 使用TCP连接clamd
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 ping -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 ping -a 192.168.127.131:3310 -n tcp
 ```
 
 - 使用UNIX套接字连接clamd
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 ping -a /var/run/clamav/clamd.ctl -n unix
+clamd-ctl-v0.1.0.linux-amd64 ping -a /var/run/clamav/clamd.ctl -n unix
 ```
 
 - 使用配置文件
@@ -168,62 +168,62 @@ clamd_read_timeout: "30s"             # 读取超时时间
 
 使用此配置文件运行命令
 ```bash
-clamd-ctl-v0.1.linux-amd64 ping -f ./configs/clamav-cli.yaml
+clamd-ctl-v0.1.0.linux-amd64 ping -f ./configs/clamav-cli.yaml
 ```
 
 - 获取 ClamAV 版本
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 version -a 192.168.127.131:3310 -n tcp
-clamd-ctl-v0.1.linux-amd64 versioncommands -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 version -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 versioncommands -a 192.168.127.131:3310 -n tcp
 ```
 
 - 获取 ClamAV 统计信息
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 stats -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 stats -a 192.168.127.131:3310 -n tcp
 ```
 
 - 扫描单个文件或目录
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 /path/to/file -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 /path/to/file -a 192.168.127.131:3310 -n tcp
 ```
 
 - 连续扫描文件或目录
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 contscan /path/to/file -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 contscan /path/to/file -a 192.168.127.131:3310 -n tcp
 ```
 
 - 并行扫描多个文件或目录
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 multiscan /path/to/file -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 multiscan /path/to/file -a 192.168.127.131:3310 -n tcp
 ```
 
 - 扫描文件或目录并在找到匹配时继续扫描
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 allmatchscan /path/to/file -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 allmatchscan /path/to/file -a 192.168.127.131:3310 -n tcp
 ```
 
 - 重新加载病毒数据库
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 reload -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 reload -a 192.168.127.131:3310 -n tcp
 ```
 
 - 关闭 ClamAV 服务器
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 shutdown -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 shutdown -a 192.168.127.131:3310 -n tcp
 ```
 
 - 流方式扫描数据
 
 ```bash
-clamd-ctl-v0.1.linux-amd64 instream "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" -a 192.168.127.131:3310 -n tcp
+clamd-ctl-v0.1.0.linux-amd64 instream "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" -a 192.168.127.131:3310 -n tcp
 ```
 
 通过以上命令，你可以方便地与 ClamAV 服务器进行互动，并利用其强大的防病毒功能来保护你的系统。

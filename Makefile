@@ -9,7 +9,7 @@ run: ## Run a controller from your host.
 # 定义应用名称和默认版本号
 APP1 = clamd-ctl
 APP2 = clamd-api
-DEFAULT_VERSION = v0.1
+DEFAULT_VERSION = v0.1.0
 
 # 获取Git描述的版本号，如果未定义则使用默认值
 # VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo $(DEFAULT_VERSION))
