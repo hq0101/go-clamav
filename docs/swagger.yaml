@@ -1,0 +1,265 @@
+definitions:
+  cli.ClamdStats:
+    properties:
+      free:
+        type: number
+      heap:
+        type: number
+      idleTimeout:
+        type: integer
+      mmap:
+        type: number
+      pools:
+        type: integer
+      poolsTotal:
+        type: number
+      poolsUsed:
+        type: number
+      queueItems:
+        type: integer
+      releasable:
+        type: number
+      state:
+        type: string
+      stats:
+        type: number
+      threadsIdle:
+        type: integer
+      threadsLive:
+        type: integer
+      threadsMax:
+        type: integer
+      used:
+        type: number
+    type: object
+  cli.ScanResult:
+    properties:
+      path:
+        type: string
+      status:
+        type: string
+      virus:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /allmatchscan:
+    get:
+      parameters:
+      - description: File path to scan
+        in: query
+        name: file
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cli.ScanResult'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: AllMatchScan scan a file or directory
+      tags:
+      - ClamAV
+  /contscan:
+    get:
+      parameters:
+      - description: File path to scan
+        in: query
+        name: file
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cli.ScanResult'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Continuously scan a file or directory
+      tags:
+      - ClamAV
+  /instream:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cli.ScanResult'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Scan data stream
+      tags:
+      - ClamAV
+  /multiscan:
+    get:
+      parameters:
+      - description: File path to scan
+        in: query
+        name: file
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cli.ScanResult'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Multithreaded scan of a file or directory
+      tags:
+      - ClamAV
+  /ping:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Ping Check the server's state. It should reply with "PONG".
+      tags:
+      - ClamAV
+  /reload:
+    post:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Reload the virus database
+      tags:
+      - ClamAV
+  /scan:
+    get:
+      parameters:
+      - description: File path to scan
+        in: query
+        name: file
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cli.ScanResult'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Scan a file or directory
+      tags:
+      - ClamAV
+  /shutdown:
+    post:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Shut down the ClamAV server
+      tags:
+      - ClamAV
+  /stats:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cli.ClamdStats'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get ClamAV stats
+      tags:
+      - ClamAV
+  /version:
+    get:
+      responses:
+        "200":
+          description: ClamAV 0.103.11/27353/Wed
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get the ClamAV version
+      tags:
+      - ClamAV
+  /versioncommands:
+    get:
+      responses:
+        "200":
+          description: ClamAV 0.103.11/27353/Wed
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get the ClamAV version
+      tags:
+      - ClamAV
+swagger: "2.0"
