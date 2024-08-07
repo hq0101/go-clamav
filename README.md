@@ -30,29 +30,29 @@ sudo apt-get install -y clamav clamav-daemon
 ```
 
 ## 安装go-clamav
-首先，你需要安装 Go 编译器并设置好开发环境。然后你可以通过以下命令获取 go-clamav
+首先，你需要安装Go编译器并设置好开发环境。然后你可以通过以下命令获取 go-clamav
 
 ```bash
-go get -u github.com/yourusername/go-clamav
+go get -u github.com/hq0101/go-clamav
 ```
 
 ## 使用示例
 
 下面是一些简单的示例，演示如何使用 go-clamav 库连接到 ClamAV 服务器并执行基本的操作。
 
-### TCP 连接 ClamAV
+### TCP 连接 Clamd
 
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/hq0101/go-clamav"
+	"fmt"
+	"github.com/hq0101/go-clamav/pkg/clamav"
 	"time"
 )
 
 func main() {
-	client := clamav.NewClamClient("tcp", "192.168.229.173:3310", 10*time.Second, 30*time.Second)
+	client := clamav.NewClamClient("tcp", "192.168.127.131:3310", 10*time.Second, 30*time.Second)
 
 	response, err := client.Ping()
 	if err != nil {
@@ -69,6 +69,7 @@ func main() {
 	}
 	fmt.Println("ClamAV Version:", version)
 }
+
 ```
 编译并运行你的程序
 
@@ -82,10 +83,11 @@ go run main.go
 package main
 
 import (
-    "fmt"
-    "github.com/hq0101/go-clamav"
+	"fmt"
+	"github.com/hq0101/go-clamav/pkg/clamav"
 	"time"
 )
+
 
 func main() {
 	client := clamav.NewClamClient("unix", "/var/run/clamav/clamd.ctl", 10*time.Second, 30*time.Second)
