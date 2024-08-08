@@ -63,14 +63,12 @@ func formatPoolStats(ps *cli.ClamdStats) string {
 		`
 === POOL STATISTICS ===
 Pools: %d
-State: %s
 Primary Threads:
   - Live: %d
   - Idle: %d
   - Max: %d
   - Idle Timeout: %d
 Queue: %d items
-Stats: %.6f
 Memory Stats:
   - Heap: %.3fM
   - Mmap: %.3fM
@@ -80,9 +78,7 @@ Memory Stats:
   - Pools Used: %.3fM
   - Pools Total: %.3fM
 `, ps.Pools,
-		ps.State,
 		ps.ThreadsLive, ps.ThreadsIdle, ps.ThreadsMax, ps.IdleTimeout,
 		ps.QueueItems,
-		ps.Stats,
-		ps.Heap, ps.Mmap, ps.Used, ps.Free, ps.Releasable, ps.PoolsUsed, ps.PoolsTotal)
+		ps.MemHeap, ps.MemMmap, ps.MemUsed, ps.MemFree, ps.MemReleasable, ps.MemPoolsUsed, ps.MemPoolsTotal)
 }

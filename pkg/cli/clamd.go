@@ -2,62 +2,57 @@ package cli
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
 type ClamdStats struct {
-	Pools       int
-	State       string
-	ThreadsLive int
-	ThreadsIdle int
-	ThreadsMax  int
-	IdleTimeout int
-	QueueItems  int
-	Stats       float64
-	Heap        float64
-	Mmap        float64
-	Used        float64
-	Free        float64
-	Releasable  float64
-	PoolsUsed   float64
-	PoolsTotal  float64
+	Pools         int
+	ThreadsLive   int
+	ThreadsIdle   int
+	ThreadsMax    int
+	IdleTimeout   int
+	QueueItems    int
+	MemHeap       float64
+	MemMmap       float64
+	MemUsed       float64
+	MemFree       float64
+	MemReleasable float64
+	MemPoolsUsed  float64
+	MemPoolsTotal float64
 }
 
-func ParsePoolStats(input string) (*ClamdStats, error) {
-	lines := strings.Split(input, "\n")
-	ps := &ClamdStats{}
+func ParseStatStr(statStr string) *ClamdStats {
+	lines := strings.Split(statStr, "\n")
+	stats := &ClamdStats{}
 
 	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "" {
+		parts := strings.Fields(line)
+		if len(parts) == 0 {
 			continue
 		}
-
-		switch {
-		case strings.HasPrefix(line, "POOLS:"):
-			fmt.Sscanf(line, "POOLS: %d", &ps.Pools)
-		case strings.HasPrefix(line, "STATE:"):
-			stateParts := strings.Fields(line)
-			if len(stateParts) >= 2 {
-				ps.State = stateParts[1]
-			}
-		case strings.HasPrefix(line, "THREADS:"):
-			var extra string
-			fmt.Sscanf(line, "THREADS: live %d idle %d max %d idle-timeout %d%s",
-				&ps.ThreadsLive, &ps.ThreadsIdle, &ps.ThreadsMax, &ps.IdleTimeout, &extra)
-			if strings.Contains(extra, "PRIMARY") {
-				ps.State += " PRIMARY"
-			}
-		case strings.HasPrefix(line, "QUEUE:"):
-			fmt.Sscanf(line, "QUEUE: %d items", &ps.QueueItems)
-		case strings.HasPrefix(line, "STATS"):
-			fmt.Sscanf(line, "STATS %f", &ps.Stats)
-		case strings.HasPrefix(line, "MEMSTATS:"):
-			fmt.Sscanf(line, "MEMSTATS: heap %fM mmap %fM used %fM free %fM releasable %fM pools %*d pools_used %fM pools_total %fM",
-				&ps.Heap, &ps.Mmap, &ps.Used, &ps.Free, &ps.Releasable, &ps.PoolsUsed, &ps.PoolsTotal)
+		switch parts[0] {
+		case "POOLS:":
+			stats.Pools, _ = strconv.Atoi(parts[1])
+		case "THREADS:":
+			stats.ThreadsLive, _ = strconv.Atoi(parts[2])
+			stats.ThreadsIdle, _ = strconv.Atoi(parts[4])
+			stats.ThreadsMax, _ = strconv.Atoi(parts[6])
+			stats.IdleTimeout, _ = strconv.Atoi(parts[8])
+		case "QUEUE:":
+			stats.QueueItems, _ = strconv.Atoi(parts[1])
+		case "MEMSTATS:":
+			stats.MemHeap, _ = strconv.ParseFloat(strings.TrimSuffix(parts[2], "M"), 64)
+			stats.MemMmap, _ = strconv.ParseFloat(strings.TrimSuffix(parts[4], "M"), 64)
+			stats.MemUsed, _ = strconv.ParseFloat(strings.TrimSuffix(parts[6], "M"), 64)
+			stats.MemFree, _ = strconv.ParseFloat(strings.TrimSuffix(parts[8], "M"), 64)
+			stats.MemReleasable, _ = strconv.ParseFloat(strings.TrimSuffix(parts[10], "M"), 64)
+			stats.MemPoolsUsed, _ = strconv.ParseFloat(strings.TrimSuffix(parts[14], "M"), 64)
+			stats.MemPoolsTotal, _ = strconv.ParseFloat(strings.TrimSuffix(parts[16], "M"), 64)
 		}
 	}
-	return ps, nil
+
+	return stats
 }
 
 type ScanResult struct {

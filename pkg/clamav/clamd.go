@@ -92,11 +92,7 @@ func (c *ClamClient) Stats() (*cli.ClamdStats, error) {
 	if err != nil {
 		return nil, err
 	}
-	ps, err := cli.ParsePoolStats(response)
-	if err != nil {
-		return nil, fmt.Errorf("error parsing pool stats: %v", err)
-	}
-	return ps, nil
+	return cli.ParseStatStr(response), nil
 }
 
 // Reload Reload the virus database.
