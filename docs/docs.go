@@ -358,38 +358,35 @@ const docTemplate = `{
         "cli.ClamdStats": {
             "type": "object",
             "properties": {
-                "free": {
-                    "type": "number"
-                },
-                "heap": {
-                    "type": "number"
-                },
                 "idleTimeout": {
                     "type": "integer"
                 },
-                "mmap": {
+                "memFree": {
+                    "type": "number"
+                },
+                "memHeap": {
+                    "type": "number"
+                },
+                "memMmap": {
+                    "type": "number"
+                },
+                "memPoolsTotal": {
+                    "type": "number"
+                },
+                "memPoolsUsed": {
+                    "type": "number"
+                },
+                "memReleasable": {
+                    "type": "number"
+                },
+                "memUsed": {
                     "type": "number"
                 },
                 "pools": {
                     "type": "integer"
                 },
-                "poolsTotal": {
-                    "type": "number"
-                },
-                "poolsUsed": {
-                    "type": "number"
-                },
                 "queueItems": {
                     "type": "integer"
-                },
-                "releasable": {
-                    "type": "number"
-                },
-                "state": {
-                    "type": "string"
-                },
-                "stats": {
-                    "type": "number"
                 },
                 "threadsIdle": {
                     "type": "integer"
@@ -399,9 +396,6 @@ const docTemplate = `{
                 },
                 "threadsMax": {
                     "type": "integer"
-                },
-                "used": {
-                    "type": "number"
                 }
             }
         },
