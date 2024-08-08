@@ -132,7 +132,6 @@ make run
 
 ![swagger](assets/swagger.png)
 
-
 # clamd-ctl 使用手册
 
 clamd-ctl是一个Go语言编写的命令行工具，用于与ClamAV服务器进行通信，并执行各种操作。

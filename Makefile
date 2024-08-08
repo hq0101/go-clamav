@@ -9,7 +9,7 @@ run: ## Run a controller from your host.
 # 定义应用名称和默认版本号
 APP1 = clamd-ctl
 APP2 = clamd-api
-DEFAULT_VERSION = v0.1.0
+DEFAULT_VERSION = v0.3.0
 
 # 获取Git描述的版本号，如果未定义则使用默认值
 # VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo $(DEFAULT_VERSION))
@@ -60,3 +60,7 @@ docker-build: ## Build docker image with the manager.
 .PHONY: docker-push
 docker-push: ## Push docker image with the manager.
 	$(CONTAINER_TOOL) push ${IMG}
+
+.PHONY: swag-init
+swag-init:
+	swag init -g cmd/clamd-api/main.go
