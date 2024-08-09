@@ -1,5 +1,7 @@
 # go-clamav
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/hq0101/go-clamav.svg)](https://pkg.go.dev/github.com/hq0101/go-clamav)
+
 go-clamav是一个用Go语言编写的库和工具集，旨在与ClamAV防病毒软件进行无缝集成。它提供了一个简洁易用的REST API，用于调用ClamAV扫描、获取统计信息、版本信息等功能。同时，go-clamav 还包含一个命令行工具clamd-ctl，用于与 Clamd守护进程通信并执行各种操作。
 
 # 核心功能
